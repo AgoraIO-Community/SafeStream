@@ -60,26 +60,13 @@ class Index extends React.Component {
           <section className="login-wrapper">
             <div className="login-header">
               <img src={require('../../assets/images/ag-logo.png')} alt="" />
-              <p className="login-title">AgoraWeb v2.1</p>
-              <p className="login-subtitle">Powering Real-Time Communications</p>
+              <p className="login-title">Agora Content Filters</p>
+              <p className="login-subtitle">Content filters for real time communication</p>
             </div>
             <div className="login-body">
               <div className="columns">
                 <div className="column is-12">
-                  <InputChannel onChange={this.handleChannel} placeholder="Input a room name here"></InputChannel>
-                </div>
-              </div>
-              <div className="columns">
-                <div className="column is-7">
-                  <BaseOptions
-                    onChange={val => this.setState({ baseMode: val })}>
-                  </BaseOptions>
-                </div>
-                <div className="column is-5">
-                  <AdvancedOptions
-                    onRadioChange={val => this.setState({ transcode: val })}
-                    onSelectChange={val => this.setState({ videoProfile: val })}>
-                  </AdvancedOptions>
+                  <InputChannel onChange={this.handleChannel} placeholder="Room name"></InputChannel>
                 </div>
               </div>
               <div className="columns">
@@ -93,18 +80,7 @@ class Index extends React.Component {
                       </span>
                       <span className="radio-img video">
                       </span>
-                      <span className="radio-msg">Video Call : join with video call</span>
-                    </label>
-                    <br />
-                    <label className="radio">
-                      <input onChange={e => this.setState({ attendeeMode: e.target.value })}
-                        value="audio-only" type="radio"
-                        name="attendee" />
-                      <span className="radio-btn">
-                      </span>
-                      <span className="radio-img audio">
-                      </span>
-                      <span className="radio-msg">Audio-only : join with audio call</span>
+                      <span className="radio-msg">Join as presenter</span>
                     </label>
                     <br />
                     <label className="radio">
@@ -115,7 +91,7 @@ class Index extends React.Component {
                       </span>
                       <span className="radio-img audience">
                       </span>
-                      <span className="radio-msg">Audience : join as an audience</span>
+                      <span className="radio-msg">Join as audience</span>
                     </label>
                   </div>
                 </div>
@@ -135,8 +111,7 @@ class Index extends React.Component {
             <span>Powered By Agora</span>
           </a>
           <div>
-            <span>Interested in Agora video call SDK? Contact </span>
-            <span className="ag-contact">sales@agora.io</span>
+            <span>Designed at AngelHack 2019 in NYC</span>
           </div>
         </div>
       </div>

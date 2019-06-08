@@ -30,7 +30,7 @@ class Meeting extends React.Component {
               src={require("../../assets/images/ag-logo.png")}
               alt=""
             />
-            <span>AgoraWeb v2.1</span>
+            <span>Agora Content Filters</span>
           </div>
           <div className="ag-header-msg">
             Room:&nbsp;<span id="room-name">{this.channel}</span>
@@ -53,7 +53,6 @@ class Meeting extends React.Component {
           <a className="ag-href" href="https://www.agora.io">
             <span>Powered By Agora</span>
           </a>
-          <span>Talk to Support: 400 632 6626</span>
         </div>
       </div>
     );
