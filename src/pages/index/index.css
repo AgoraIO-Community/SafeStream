@@ -281,3 +281,9 @@
 .validate-icon > .ag-icon-valid {
   color: #7ed321;
 }
+
+.logOutMenuHome {
+  margin-left: auto;
+  margin-right: 15px;
+  margin-top: 15px;
+}
