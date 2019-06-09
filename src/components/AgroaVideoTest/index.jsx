@@ -81,7 +81,8 @@ class AgoraCanvas extends React.Component {
       displayMode: "pip",
       readyState: false,
       mic: false,
-      video: false
+      video: false,
+      message: false
     };
   }
 
@@ -258,9 +259,13 @@ class AgoraCanvas extends React.Component {
     }
     this.remoteStream = stream;
     this.videoRef.current.srcObject = stream.stream;
-    this.setState({ readyState: true });
+    console.log(this.videoRef);
+    // this.videoRef.current.style.filter = "blur(30px)";
+
+    // this.setState({ readyState: true });
     cocoSsd.load().then(value => {
-      this.setState({ readyState: true });
+      // this.videoRef.current.style.filter = "none";
+      this.setState({ readyState: true, message: true });
       this.detectFrame(this.videoRef.current, value);
     });
   };
@@ -408,7 +413,9 @@ class AgoraCanvas extends React.Component {
               }
             />
           </Card>
-          <div className={"greetingMessage"}>{greetingMessage}</div>
+          {this.state.message ? (
+            <div className={"greetingMessage"}>{greetingMessage}</div>
+          ) : null}
         </div>
         {this.state.readyState && this.state.video && (
           <div className="liveWrapper">
