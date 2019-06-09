@@ -46,6 +46,9 @@ video {
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .buttonsBar {

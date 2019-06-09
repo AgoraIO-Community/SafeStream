@@ -677,19 +677,21 @@ class AgoraCanvas extends React.Component {
           muted
           ref={this.videoRef}
           width={
-            this.remoteStream.videoWidth ? this.remoteStream.videoWidth : "100%"
+            this.remoteStream.videoWidth ? this.remoteStream.videoWidth : "640px"
           }
           height={
             this.remoteStream.videoHeight
               ? this.remoteStream.videoHeight
-              : "100%"
+              : "480px"
           }
         />
         {this.state.readyState && this.state.video && (
-          <Toolbar className="liveWrapper">
-            <Typography variant="overline">LIVE</Typography>
-            <FiberManualRecordIcon fontSize="small" />
-          </Toolbar>
+          <div className="liveWrapper">
+            <Toolbar>
+              <Typography variant="overline">LIVE</Typography>
+              <FiberManualRecordIcon fontSize="small" />
+            </Toolbar>
+          </div>
         )}
       </>
     )
