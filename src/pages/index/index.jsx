@@ -109,7 +109,7 @@ class Index extends React.Component {
                     src={require("../../assets/images/logo.png")}
                     alt=""
                   />
-                  <p className="login-title">Agora Content Filters</p>
+                  <p className="login-title">SafeStream</p>
                   <p className="login-subtitle">
                     Content filters for real time communication
                   </p>
