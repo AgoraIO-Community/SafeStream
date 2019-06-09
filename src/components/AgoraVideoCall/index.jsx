@@ -6,6 +6,8 @@ import "../../assets/fonts/css/icons.css"
 
 import { AppBar, Toolbar, IconButton } from "@material-ui/core"
 
+import LogOutMenu from "../LogOutMenu/LogOutMenu"
+
 import CloseIcon from "@material-ui/icons/Close"
 import MicIcon from "@material-ui/icons/Mic"
 import MicOffIcon from "@material-ui/icons/MicOff"
@@ -445,6 +447,7 @@ class AgoraCanvas extends React.Component {
               {switchDisplayBtn}
               {hideRemoteBtn}
             </div>
+            <LogOutMenu />
           </Toolbar>
         </AppBar>
         <div id="ag-canvas" style={style}>
