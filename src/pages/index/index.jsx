@@ -234,9 +234,9 @@ class InputChannel extends React.Component {
           onInput={this.handleChange}
           type="text"
           placeholder={this.props.placeholder}
+          error={this.state.errorMsg !== ""}
+          helperText={this.state.errorMsg}
         />
-        <span className="validate-icon">{validateIcon}</span>
-        <div className="validate-msg">{this.state.errorMsg}</div>
       </>
     )
   }
