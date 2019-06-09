@@ -236,7 +236,7 @@ class AgoraCanvas extends React.Component {
           item.play("ag-item-" + id)
         }
         dom.setAttribute("style", `grid-area: ${tile_canvas[no][index]}`)
-        item.player.resize && item.player.resize()
+        item.player && item.player.resize && item.player.resize()
       })
     }
     // screen share mode (tbd)
