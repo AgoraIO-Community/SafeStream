@@ -125,7 +125,12 @@ class Index extends React.Component {
                   >
                     Start Broadcast
                   </Button>
-                  <Typography variant="h6" color="primary">
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                    className="centerText"
+                    fontWeight={600}
+                  >
                     - OR -
                   </Typography>
                   <InputChannel
