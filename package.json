@@ -3,6 +3,8 @@
   "version": "2.6.1",
   "description": "Integrate Agora SDK with ReactJS to realize a simple video chat app",
   "dependencies": {
+    "@material-ui/core": "^4.0.0-rc.0",
+    "@material-ui/icons": "^4.0.1",
     "@tensorflow-models/coco-ssd": "^1.0.2",
     "@tensorflow/tfjs": "^1.1.2",
     "agora-rtc-sdk": "^2.6.1",
