@@ -1,15 +1,16 @@
 import React from "react"
 import { merge } from "lodash"
 import AgoraRTC from "agora-rtc-sdk"
-
+import * as cocoSsd from "@tensorflow-models/coco-ssd"
+import "@tensorflow/tfjs"
 import "../../assets/fonts/css/icons.css"
 
 import {
   AppBar,
   Toolbar,
   IconButton,
-  CircularProgress,
-  Typography
+  Typography,
+  CircularProgress
 } from "@material-ui/core"
 
 import LogOutMenu from "../LogOutMenu/LogOutMenu"
@@ -66,6 +67,8 @@ const tile_canvas = {
  * @prop appId uid
  * @prop transcode attendeeMode videoProfile channel baseMode
  */
+let filter = document.createElement("canvas")
+let canvasContext
 class AgoraCanvas extends React.Component {
   constructor(props) {
     super(props)
@@ -82,14 +85,16 @@ class AgoraCanvas extends React.Component {
     }
   }
 
-  componentWillMount() {
+  initialize() {
+    canvasContext = filter.getContext("2d")
     let $ = this.props
-    // init AgoraRTC local client
     this.client = AgoraRTC.createClient({ mode: $.transcode })
-
-    this.client.init($.appId, () => {
-      console.log("AgoraRTC client initialized")
-      this.subscribeStreamEvents()
+    return new Promise((resolve, reject) => {
+      this.client.init($.appId, () => {
+        console.log(this.client)
+        console.log("AgoraRTC client initialized")
+        this.subscribeStreamEvents()
+      })
       this.client.join($.appId, $.channel, $.uid, uid => {
         console.log("User " + uid + " join channel successfully")
         console.log("At " + new Date().toLocaleTimeString())
@@ -100,19 +105,82 @@ class AgoraCanvas extends React.Component {
           () => {
             if ($.attendeeMode !== "audience") {
               this.addStream(this.localStream, true)
+              console.log("before publish", this.localStream)
               this.client.publish(this.localStream, err => {
                 console.log("Publish local stream error: " + err)
+                reject()
               })
+              resolve()
             }
             this.setState({ readyState: true })
           },
           err => {
             console.log("getUserMedia failed", err)
             this.setState({ readyState: true })
+            reject()
           }
         )
       })
     })
+  }
+
+  detectFrame = async (video, model) => {
+    video.width = video.videoWidth
+    video.height = video.videoHeight
+    let predictions = await model.detect(video)
+    this.renderPredictions(video, predictions)
+    requestAnimationFrame(() => this.detectFrame(video, model))
+  }
+
+  renderPredictions = (video, predictions) => {
+    const ctx = canvasContext
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+    for (let i = 0; i < predictions.length; i++) {
+      if (predictions[i].class === "cell phone") {
+        video.style.filter = "blur(30px)"
+        break
+      }
+      video.style.filter = "none"
+    }
+  }
+
+  // componentWillMount() {
+  //   let $ = this.props
+  //   // init AgoraRTC local client
+  //   this.client = AgoraRTC.createClient({ mode: $.transcode })
+
+  //   this.client.init($.appId, () => {
+  //     console.log("AgoraRTC client initialized")
+  //     this.subscribeStreamEvents()
+  //     this.client.join($.appId, $.channel, $.uid, uid => {
+  //       console.log("User " + uid + " join channel successfully")
+  //       console.log("At " + new Date().toLocaleTimeString())
+  //       // create local stream
+  //       // It is not recommended to setState in function addStream
+  //       this.localStream = this.streamInit(uid, $.attendeeMode, $.videoProfile)
+  //       this.localStream.init(
+  //         () => {
+  //           if ($.attendeeMode !== "audience") {
+  //             this.addStream(this.localStream, true)
+  //             this.client.publish(this.localStream, err => {
+  //               console.log("Publish local stream error: " + err)
+  //             })
+  //           }
+  //           this.setState({ readyState: true })
+  //         },
+  //         err => {
+  //           console.log("getUserMedia failed", err)
+  //           this.setState({ readyState: true })
+  //         }
+  //       )
+  //     })
+  //   })
+  // }
+
+  componentWillMount() {
+    document.body.append(filter)
+    // init AgoraRTC local client
+    this.initialize()
   }
 
   // componentWillUnmount () {
@@ -218,6 +286,16 @@ class AgoraCanvas extends React.Component {
 
   subscribeStreamEvents = () => {
     let rt = this
+    // rt.client.on("stream-added", function(evt) {
+    //   let stream = evt.stream
+    //   console.log("New stream added: " + stream.getId())
+    //   console.log("At " + new Date().toLocaleTimeString())
+    //   console.log("Subscribe ", stream)
+    //   rt.client.subscribe(stream, function(err) {
+    //     console.log("Subscribe stream failed", err)
+    //   })
+    // })
+
     rt.client.on("stream-added", function(evt) {
       let stream = evt.stream
       console.log("New stream added: " + stream.getId())
@@ -225,6 +303,12 @@ class AgoraCanvas extends React.Component {
       console.log("Subscribe ", stream)
       rt.client.subscribe(stream, function(err) {
         console.log("Subscribe stream failed", err)
+      })
+      cocoSsd.load().then(value => {
+        const remoteVid = document.querySelector("video")
+        console.log(value)
+        console.log(remoteVid)
+        rt.detectFrame(remoteVid, value)
       })
     })
 

@@ -15,14 +15,6 @@
   width: 100%;
 }
 
-#ag-item-1 {
-  border: 2px red solid;
-}
-
-.ag-item::first-child {
-  border: 2px red solid !important;
-}
-
 #ag-resize-container {
   background-image: none !important;
   background-color: black;
