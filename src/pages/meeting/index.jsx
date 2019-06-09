@@ -27,7 +27,7 @@ class Meeting extends React.Component {
       <div className="wrapper meeting">
         <div className="ag-header">
           <div className="ag-header-lead">
-            <span>Agora Content Filters</span>
+            <span>SafeStream</span>
           </div>
           <div className="ag-header-msg">
             Room:&nbsp;<span id="room-name">{this.channel}, {this.attendeeMode}</span>

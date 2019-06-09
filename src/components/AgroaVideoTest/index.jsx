@@ -370,7 +370,7 @@ class AgoraCanvas extends React.Component {
           <Toolbar>
             <img
               className="header-logo"
-              src={require("../../assets/images/ag-logo.png")}
+              src={require("../../assets/images/logo.png")}
               alt=""
             />
             {this.props.channel}
