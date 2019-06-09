@@ -30,7 +30,7 @@ class Meeting extends React.Component {
             <span>Agora Content Filters</span>
           </div>
           <div className="ag-header-msg">
-            Room:&nbsp;<span id="room-name">{this.channel}</span>
+            Room:&nbsp;<span id="room-name">{this.channel}, {this.attendeeMode}</span>
           </div>
         </div>
         <div className="ag-main">

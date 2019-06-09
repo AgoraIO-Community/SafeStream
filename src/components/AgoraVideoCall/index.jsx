@@ -2,7 +2,6 @@ import React from "react"
 import { merge } from "lodash"
 import AgoraRTC from "agora-rtc-sdk"
 
-import "./canvas.css"
 import "../../assets/fonts/css/icons.css"
 
 import { AppBar, Toolbar, IconButton } from "@material-ui/core"
@@ -14,6 +13,9 @@ import VideocamIcon from "@material-ui/icons/Videocam"
 import VideocamOffIcon from "@material-ui/icons/VideocamOff"
 import PictureInPictureIcon from "@material-ui/icons/PictureInPicture"
 import PageviewIcon from "@material-ui/icons/Pageview"
+import "./canvas.css"
+import "../../assets/fonts/css/icons.css"
+import VideoDetector from "../../components/VideoDetector/VideoDetector"
 
 const tile_canvas = {
   "1": ["span 12/span 24"],
@@ -75,6 +77,7 @@ class AgoraCanvas extends React.Component {
     let $ = this.props
     // init AgoraRTC local client
     this.client = AgoraRTC.createClient({ mode: $.transcode })
+
     this.client.init($.appId, () => {
       console.log("AgoraRTC client initialized")
       this.subscribeStreamEvents()
