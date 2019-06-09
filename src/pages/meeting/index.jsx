@@ -2,7 +2,6 @@ import React from "react"
 import * as Cookies from "js-cookie"
 
 import "./meeting.css"
-import AgoraVideoCall from "../../components/AgoraVideoCall"
 import AgoraVideoTest from "../../components/AgroaVideoTest"
 import { AGORA_APP_ID } from "../../agora.config"
 
