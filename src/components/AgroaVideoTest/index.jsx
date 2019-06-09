@@ -1,52 +1,63 @@
-import React from 'react';
-import { merge } from 'lodash';
-import AgoraRTC from 'agora-rtc-sdk';
-import * as cocoSsd from '@tensorflow-models/coco-ssd';
-import '@tensorflow/tfjs';
-import '../../assets/fonts/css/icons.css';
+import React from "react";
+import { merge } from "lodash";
+import AgoraRTC from "agora-rtc-sdk";
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import "@tensorflow/tfjs";
+import "../../assets/fonts/css/icons.css";
 
-import { AppBar, Toolbar, IconButton, Typography, CircularProgress } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  CircularProgress
+} from "@material-ui/core";
 
-import LogOutMenu from '../LogOutMenu/LogOutMenu';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import CloseIcon from '@material-ui/icons/Close';
-import MicIcon from '@material-ui/icons/Mic';
-import MicOffIcon from '@material-ui/icons/MicOff';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import VideocamOffIcon from '@material-ui/icons/VideocamOff';
-import PictureInPictureIcon from '@material-ui/icons/PictureInPicture';
-import PageviewIcon from '@material-ui/icons/Pageview';
-import './canvas.css';
-import '../../assets/fonts/css/icons.css';
+import LogOutMenu from "../LogOutMenu/LogOutMenu";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+import CloseIcon from "@material-ui/icons/Close";
+import MicIcon from "@material-ui/icons/Mic";
+import MicOffIcon from "@material-ui/icons/MicOff";
+import VideocamIcon from "@material-ui/icons/Videocam";
+import VideocamOffIcon from "@material-ui/icons/VideocamOff";
+import PictureInPictureIcon from "@material-ui/icons/PictureInPicture";
+import PageviewIcon from "@material-ui/icons/Pageview";
+import "./canvas.css";
+import "../../assets/fonts/css/icons.css";
 
 const tile_canvas = {
-  '1': ['span 12/span 24'],
-  '2': ['span 12/span 12/13/25', 'span 12/span 12/13/13'],
-  '3': ['span 6/span 12', 'span 6/span 12', 'span 6/span 12/7/19'],
-  '4': ['span 6/span 12', 'span 6/span 12', 'span 6/span 12', 'span 6/span 12/7/13'],
-  '5': [
-    'span 3/span 4/13/9',
-    'span 3/span 4/13/13',
-    'span 3/span 4/13/17',
-    'span 3/span 4/13/21',
-    'span 9/span 16/10/21'
+  "1": ["span 12/span 24"],
+  "2": ["span 12/span 12/13/25", "span 12/span 12/13/13"],
+  "3": ["span 6/span 12", "span 6/span 12", "span 6/span 12/7/19"],
+  "4": [
+    "span 6/span 12",
+    "span 6/span 12",
+    "span 6/span 12",
+    "span 6/span 12/7/13"
   ],
-  '6': [
-    'span 3/span 4/13/7',
-    'span 3/span 4/13/11',
-    'span 3/span 4/13/15',
-    'span 3/span 4/13/19',
-    'span 3/span 4/13/23',
-    'span 9/span 16/10/21'
+  "5": [
+    "span 3/span 4/13/9",
+    "span 3/span 4/13/13",
+    "span 3/span 4/13/17",
+    "span 3/span 4/13/21",
+    "span 9/span 16/10/21"
   ],
-  '7': [
-    'span 3/span 4/13/5',
-    'span 3/span 4/13/9',
-    'span 3/span 4/13/13',
-    'span 3/span 4/13/17',
-    'span 3/span 4/13/21',
-    'span 3/span 4/13/25',
-    'span 9/span 16/10/21'
+  "6": [
+    "span 3/span 4/13/7",
+    "span 3/span 4/13/11",
+    "span 3/span 4/13/15",
+    "span 3/span 4/13/19",
+    "span 3/span 4/13/23",
+    "span 9/span 16/10/21"
+  ],
+  "7": [
+    "span 3/span 4/13/5",
+    "span 3/span 4/13/9",
+    "span 3/span 4/13/13",
+    "span 3/span 4/13/17",
+    "span 3/span 4/13/21",
+    "span 3/span 4/13/25",
+    "span 9/span 16/10/21"
   ]
 };
 
@@ -66,7 +77,7 @@ class AgoraCanvas extends React.Component {
     this.timeout = null;
     this.videoRef = new React.createRef();
     this.state = {
-      displayMode: 'pip',
+      displayMode: "pip",
       readyState: false,
       mic: false,
       video: false
@@ -83,55 +94,62 @@ class AgoraCanvas extends React.Component {
 
   renderPredictions = (video, predictions) => {
     for (let i = 0; i < predictions.length; i++) {
-      if (predictions[i].class === 'cell phone') {
+      if (predictions[i].class === "cell phone") {
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-          video.style.filter = 'none';
+          video.style.filter = "none";
         }, 2000);
-        video.style.filter = 'blur(30px)';
+        video.style.filter = "blur(30px)";
       }
     }
   };
 
   componentDidMount() {
-    const { appId, channel, uid: propUid, attendeeMode, transcode, videoProfile } = this.props;
+    const {
+      appId,
+      channel,
+      uid: propUid,
+      attendeeMode,
+      transcode,
+      videoProfile
+    } = this.props;
     this.client = AgoraRTC.createClient({
       mode: transcode
     });
-    if (attendeeMode !== 'audience') {
+    if (attendeeMode !== "audience") {
       return new Promise((resolve, reject) => {
         this.client.init(appId, () => {
-          console.log('HERE', this.client);
-          console.log('AgoraRTC client initialized');
+          console.log("HERE", this.client);
+          console.log("AgoraRTC client initialized");
           console.log(this.client.highStream);
           this.subscribeStreamEvents();
         });
         this.client.join(appId, channel, propUid, uid => {
-          console.log('User ' + uid + ' join channel successfully');
-          console.log('At ' + new Date().toLocaleTimeString());
+          console.log("User " + uid + " join channel successfully");
+          console.log("At " + new Date().toLocaleTimeString());
           // create local stream
           // It is not recommended to setState in function addStream
           this.localStream = this.streamInit(uid, attendeeMode, videoProfile);
           this.localStream.init(
             () => {
-              console.log('STREAM:', this.localStream);
-              console.log('VIDEO ELEM:', this.videoRef.current);
+              console.log("STREAM:", this.localStream);
+              console.log("VIDEO ELEM:", this.videoRef.current);
               this.videoRef.current.srcObject = this.localStream.stream;
               this.addStream(this.localStream, true);
-              console.log('before publish', this.localStream);
+              console.log("before publish", this.localStream);
               this.client.publish(this.localStream, err => {
-                console.log('Publish local stream error: ' + err);
+                console.log("Publish local stream error: " + err);
                 reject();
               });
-              console.log('should be happening');
+              console.log("should be happening");
               resolve();
-              console.log('should be happening2');
+              console.log("should be happening2");
               this.setState({
                 readyState: true
               });
             },
             err => {
-              console.log('getUserMedia failed', err);
+              console.log("getUserMedia failed", err);
               this.setState({
                 readyState: true
               });
@@ -143,13 +161,13 @@ class AgoraCanvas extends React.Component {
     } else {
       return new Promise((resolve, reject) => {
         this.client.init(appId, () => {
-          console.log('HERE', this.client);
-          console.log('AgoraRTC client initialized');
+          console.log("HERE", this.client);
+          console.log("AgoraRTC client initialized");
           this.subscribeStreamEvents();
         });
         this.client.join(appId, channel, propUid, uid => {
-          console.log('User ' + uid + ' join channel successfully');
-          console.log('At ' + new Date().toLocaleTimeString());
+          console.log("User " + uid + " join channel successfully");
+          console.log("At " + new Date().toLocaleTimeString());
           // create local stream
           // It is not recommended to setState in function addStream
         });
@@ -166,15 +184,15 @@ class AgoraCanvas extends React.Component {
     };
 
     switch (attendeeMode) {
-      case 'audio-only':
+      case "audio-only":
         defaultConfig.video = false;
         break;
-      case 'audience':
+      case "audience":
         defaultConfig.video = false;
         defaultConfig.audio = false;
         break;
       default:
-      case 'video':
+      case "video":
         break;
     }
 
@@ -186,44 +204,44 @@ class AgoraCanvas extends React.Component {
   subscribeStreamEvents = () => {
     let rt = this;
 
-    rt.client.on('stream-added', function(evt) {
-      if (rt.props.attendeeMode === 'audience') {
+    rt.client.on("stream-added", function(evt) {
+      if (rt.props.attendeeMode === "audience") {
         let stream = evt.stream;
-        console.log('New stream added: ' + stream.getId());
-        console.log('At ' + new Date().toLocaleTimeString());
-        console.log('Subscribe ', stream);
+        console.log("New stream added: " + stream.getId());
+        console.log("At " + new Date().toLocaleTimeString());
+        console.log("Subscribe ", stream);
         rt.client.subscribe(stream, function(err) {
-          console.log('Subscribe stream failed', err);
+          console.log("Subscribe stream failed", err);
         });
       }
     });
 
-    rt.client.on('peer-leave', function(evt) {
-      console.log('Peer has left: ' + evt.uid);
+    rt.client.on("peer-leave", function(evt) {
+      console.log("Peer has left: " + evt.uid);
       console.log(new Date().toLocaleTimeString());
       console.log(evt);
 
       if (rt.remoteStream.getId && rt.remoteStream.getId() === evt.uid) {
-        console.log('Redirecting to Home');
-        window.location.hash = '';
+        console.log("Redirecting to Home");
+        window.location.hash = "";
       }
     });
 
-    rt.client.on('stream-subscribed', function(evt) {
-      if (rt.props.attendeeMode === 'audience') {
+    rt.client.on("stream-subscribed", function(evt) {
+      if (rt.props.attendeeMode === "audience") {
         let stream = evt.stream;
-        console.log('Got stream-subscribed event');
+        console.log("Got stream-subscribed event");
         console.log(new Date().toLocaleTimeString());
-        console.log('Subscribe remote stream successfully: ' + stream.getId());
+        console.log("Subscribe remote stream successfully: " + stream.getId());
         console.log(evt);
         rt.addStream(stream);
       }
     });
 
-    rt.client.on('stream-removed', function(evt) {
-      if (rt.props.attendeeMode === 'audience') {
+    rt.client.on("stream-removed", function(evt) {
+      if (rt.props.attendeeMode === "audience") {
         let stream = evt.stream;
-        console.log('Stream removed: ' + stream.getId());
+        console.log("Stream removed: " + stream.getId());
         console.log(new Date().toLocaleTimeString());
         console.log(evt);
       }
@@ -231,7 +249,10 @@ class AgoraCanvas extends React.Component {
   };
 
   addStream = (stream, push = false) => {
-    if (this.remoteStream.getId && this.remoteStream.getId() === stream.getId()) {
+    if (
+      this.remoteStream.getId &&
+      this.remoteStream.getId() === stream.getId()
+    ) {
       return;
     }
     this.remoteStream = stream;
@@ -264,7 +285,7 @@ class AgoraCanvas extends React.Component {
   };
 
   handleExit = e => {
-    if (e.currentTarget.classList.contains('disabled')) {
+    if (e.currentTarget.classList.contains("disabled")) {
       return;
     }
     try {
@@ -273,45 +294,45 @@ class AgoraCanvas extends React.Component {
       this.client &&
         this.client.leave(
           () => {
-            console.log('Client succeed to leave.');
+            console.log("Client succeed to leave.");
           },
           () => {
-            console.log('Client failed to leave.');
+            console.log("Client failed to leave.");
           }
         );
     } finally {
       this.setState({ readyState: false });
       this.client = null;
       this.localStream = null;
-      window.location.hash = '';
+      window.location.hash = "";
     }
   };
 
   render() {
     const style = {
-      display: 'grid',
-      gridGap: '10px',
-      alignItems: 'center',
-      justifyItems: 'center',
-      gridTemplateRows: 'repeat(12, auto)',
-      gridTemplateColumns: 'repeat(24, auto)'
+      display: "grid",
+      gridGap: "10px",
+      alignItems: "center",
+      justifyItems: "center",
+      gridTemplateRows: "repeat(12, auto)",
+      gridTemplateColumns: "repeat(24, auto)"
     };
     const videoControlBtn =
-      this.props.attendeeMode === 'video' ? (
+      this.props.attendeeMode === "video" ? (
         <IconButton onClick={this.handleCamera} title="Enable/Disable Video">
           {this.state.video ? <VideocamIcon /> : <VideocamOffIcon />}
         </IconButton>
       ) : (
-        ''
+        ""
       );
 
     const audioControlBtn =
-      this.props.attendeeMode !== 'audience' ? (
+      this.props.attendeeMode !== "audience" ? (
         <IconButton onClick={this.handleMic} title="Enable/Disable Audio">
           {this.state.mic ? <MicIcon /> : <MicOffIcon />}
         </IconButton>
       ) : (
-        ''
+        ""
       );
 
     const switchDisplayBtn = (
@@ -321,7 +342,7 @@ class AgoraCanvas extends React.Component {
     );
     const hideRemoteBtn = (
       <IconButton
-        disabled={!this.state.displayMode === 'pip'}
+        disabled={!this.state.displayMode === "pip"}
         onClick={this.hideRemote}
         title="Hide Remote Stream"
       >
@@ -334,14 +355,18 @@ class AgoraCanvas extends React.Component {
       </IconButton>
     );
     let greetingMessage = `You are presenting, say hello to your viewers!`;
-    if (this.props.attendeeMode === 'audience') {
+    if (this.props.attendeeMode === "audience") {
       greetingMessage = `You are an audience member.  Sit back and enjoy!`;
     }
     return (
       <>
-        <AppBar color={this.state.readyState ? 'primary' : 'default'}>
+        <AppBar color={this.state.readyState ? "primary" : "default"}>
           <Toolbar>
-            <img className="header-logo" src={require('../../assets/images/ag-logo.png')} alt="" />
+            <img
+              className="header-logo"
+              src={require("../../assets/images/ag-logo.png")}
+              alt=""
+            />
             {this.props.channel}
             <div className="buttonsBar">
               {exitBtn}
@@ -355,7 +380,12 @@ class AgoraCanvas extends React.Component {
         </AppBar>
         {!this.state.readyState && (
           <div className="spinnerWrapper">
-            <CircularProgress color="secondary" className="spinner" size={150} thickness={4} />
+            <CircularProgress
+              color="secondary"
+              className="spinner"
+              size={150}
+              thickness={4}
+            />
           </div>
         )}
         <div>
@@ -364,10 +394,18 @@ class AgoraCanvas extends React.Component {
             playsInline
             muted
             ref={this.videoRef}
-            width={this.remoteStream.videoWidth ? this.remoteStream.videoWidth : '640px'}
-            height={this.remoteStream.videoHeight ? this.remoteStream.videoHeight : '480px'}
+            width={
+              this.remoteStream.videoWidth
+                ? this.remoteStream.videoWidth
+                : "640px"
+            }
+            height={
+              this.remoteStream.videoHeight
+                ? this.remoteStream.videoHeight
+                : "480px"
+            }
           />
-          <div className={'greetingMessage'}>{greetingMessage}</div>
+          <div className={"greetingMessage"}>{greetingMessage}</div>
         </div>
         {this.state.readyState && this.state.video && (
           <div className="liveWrapper">
