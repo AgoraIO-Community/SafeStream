@@ -1,4 +1,4 @@
-.size1{
+.size1 {
   position: absolute;
 }
 
@@ -6,20 +6,17 @@
   height: 100%;
 }
 
-.ag-item :first-child {
-  border-radius: 6px;
-}
-
 .ag-item {
-  border-radius: 6px;
-  border: 2px #00B6ED solid;
-  background: url('../../assets/images/avatar.png') center no-repeat;
+  /* border-radius: 6px;
+  border: 2px #00b6ed solid; */
+  /* border: 2px #333333 solid; */
+  background: url("../../assets/images/avatar.png") center no-repeat;
   height: 100%;
   width: 100%;
 }
 
 #ag-resize-container {
-  background-image: none!important;
+  background-image: none !important;
   background-color: black;
   display: flex;
   justify-content: center;
@@ -27,29 +24,10 @@
 }
 
 #ag-resize-container .ag-item {
-  border: none!important;
+  border: none !important;
 }
-
 
 /* button group */
-
-.ag-btn-group {
-  height: 70px;
-  width: calc(100% - 60px);
-  margin: 0 auto;
-  position: absolute;
-  bottom: 0;
-  background: transparent;
-  z-index: 11;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.ag-btn-group:hover,
-.ag-btn-group.active {
-  background: rgba(18, 74, 99, .8);
-}
 
 .ag-btn {
   z-index: 12;
@@ -65,12 +43,12 @@
 }
 
 .ag-btn:hover {
-  color: #00B6ED;
+  color: #00b6ed;
 }
 
 .ag-btn.disabled,
 .ag-btn.disabled:hover {
-  color: #637C8E;
+  color: #637c8e;
   cursor: not-allowed;
 }
 
@@ -109,4 +87,29 @@
 
 .ag-btn.off.audioControlBtn .ag-icon-mic-off {
   display: inline-block;
+}
+
+.spinnerWrapper {
+  z-index: 5;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  margin-top: 280px;
+  justify-items: center;
+  justify-content: center;
+}
+
+.buttonsBar {
+  margin-right: 20px;
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+.liveWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  right: 0;
+  top: 0;
+  color: red;
 }

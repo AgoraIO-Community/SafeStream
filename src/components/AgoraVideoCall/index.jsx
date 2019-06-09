@@ -112,7 +112,6 @@ class AgoraCanvas extends React.Component {
               })
               resolve()
             }
-            this.setState({ readyState: true })
           },
           err => {
             console.log("getUserMedia failed", err)
@@ -305,10 +304,10 @@ class AgoraCanvas extends React.Component {
         console.log("Subscribe stream failed", err)
       })
       cocoSsd.load().then(value => {
-        const remoteVid = document.querySelector("video")
+        rt.setState({ readyState: true })
         console.log(value)
-        console.log(remoteVid)
-        rt.detectFrame(remoteVid, value)
+        console.log(rt.videoRef.current)
+        rt.detectFrame(rt.videoRef.current, value)
       })
     })
 
