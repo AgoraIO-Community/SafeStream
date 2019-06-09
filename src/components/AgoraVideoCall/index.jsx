@@ -4,7 +4,13 @@ import AgoraRTC from "agora-rtc-sdk"
 
 import "../../assets/fonts/css/icons.css"
 
-import { AppBar, Toolbar, IconButton } from "@material-ui/core"
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  CircularProgress,
+  Typography
+} from "@material-ui/core"
 
 import LogOutMenu from "../LogOutMenu/LogOutMenu"
 
@@ -15,6 +21,7 @@ import VideocamIcon from "@material-ui/icons/Videocam"
 import VideocamOffIcon from "@material-ui/icons/VideocamOff"
 import PictureInPictureIcon from "@material-ui/icons/PictureInPicture"
 import PageviewIcon from "@material-ui/icons/Pageview"
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord"
 import "./canvas.css"
 import "../../assets/fonts/css/icons.css"
 import VideoDetector from "../../components/VideoDetector/VideoDetector"
@@ -70,8 +77,8 @@ class AgoraCanvas extends React.Component {
       displayMode: "pip",
       streamList: [],
       readyState: false,
-      mic: false,
-      video: false
+      mic: true,
+      video: true
     }
   }
 
@@ -105,21 +112,6 @@ class AgoraCanvas extends React.Component {
           }
         )
       })
-    })
-  }
-
-  componentDidMount() {
-    // add listener to control btn group
-    let canvas = document.querySelector("#ag-canvas")
-    let btnGroup = document.querySelector(".ag-btn-group")
-    canvas.addEventListener("mousemove", () => {
-      if (global._toolbarToggle) {
-        clearTimeout(global._toolbarToggle)
-      }
-      btnGroup.classList.add("active")
-      global._toolbarToggle = setTimeout(function() {
-        btnGroup.classList.remove("active")
-      }, 2000)
     })
   }
 
@@ -159,7 +151,7 @@ class AgoraCanvas extends React.Component {
           )
         }
 
-        item.player.resize && item.player.resize()
+        item.player && item.player.resize && item.player.resize()
       })
     }
     // tile mode
@@ -432,7 +424,7 @@ class AgoraCanvas extends React.Component {
 
     return (
       <>
-        <AppBar>
+        <AppBar color={this.state.readyState ? "primary" : "default"}>
           <Toolbar>
             <img
               className="header-logo"
@@ -450,13 +442,23 @@ class AgoraCanvas extends React.Component {
             <LogOutMenu />
           </Toolbar>
         </AppBar>
-        <div id="ag-canvas" style={style}>
-          <div className="ag-btn-group">
-            {/* <span className="ag-btn shareScreenBtn" title="Share Screen">
-                        <i className="ag-icon ag-icon-screen-share"></i>
-                    </span> */}
+        {!this.state.readyState && (
+          <div className="spinnerWrapper">
+            <CircularProgress
+              color="secondary"
+              className="spinner"
+              size={150}
+              thickness={4}
+            />
           </div>
-        </div>
+        )}
+        <div id="ag-canvas" style={style} />
+        {this.state.readyState && this.state.video && (
+          <Toolbar className="liveWrapper">
+            <Typography variant="overline">LIVE</Typography>
+            <FiberManualRecordIcon fontSize="small" />
+          </Toolbar>
+        )}
       </>
     )
   }
