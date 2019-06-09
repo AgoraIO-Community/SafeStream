@@ -497,7 +497,7 @@ class AgoraCanvas extends React.Component {
       <>
         <AppBar>
           <Toolbar>
-            <img className="header-logo" src={require('../../assets/images/ag-logo.png')} alt="" />
+            <img className="header-logo" src={require('../../assets/images/logo.png')} alt="" />
             {this.props.channel}
             <div className="buttonsBar">
               {exitBtn}

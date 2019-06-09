@@ -106,7 +106,7 @@ class Index extends React.Component {
               <CardContent className={this.props.classes.header}>
                 <div className="login-header">
                   <img
-                    src={require("../../assets/images/ag-logo.png")}
+                    src={require("../../assets/images/logo.png")}
                     alt=""
                   />
                   <p className="login-title">Agora Content Filters</p>
