@@ -351,7 +351,10 @@ class AgoraCanvas extends React.Component {
         <CloseIcon />
       </IconButton>
     );
-
+    let greetingMessage = `You are presenting, say hello to your viewers!`
+    if(this.props.attendeeMode === 'audience'){
+      greetingMessage = `You are an audience member.  Sit back and enjoy!`
+    }
     return (
       <>
         <AppBar color={this.state.readyState ? "primary" : "default"}>
@@ -382,22 +385,25 @@ class AgoraCanvas extends React.Component {
             />
           </div>
         )}
-        <video
-          autoPlay
-          playsInline
-          muted
-          ref={this.videoRef}
-          width={
-            this.remoteStream.videoWidth
-              ? this.remoteStream.videoWidth
-              : "640px"
-          }
-          height={
-            this.remoteStream.videoHeight
-              ? this.remoteStream.videoHeight
-              : "480px"
-          }
-        />
+        <div>
+          <video
+            autoPlay
+            playsInline
+            muted
+            ref={this.videoRef}
+            width={
+              this.remoteStream.videoWidth ? this.remoteStream.videoWidth : "640px"
+            }
+            height={
+              this.remoteStream.videoHeight
+                ? this.remoteStream.videoHeight
+                : "480px"
+            }
+          />
+          <div className={'greetingMessage'}>
+            {greetingMessage}
+          </div>
+        </div>
         {this.state.readyState && this.state.video && (
           <div className="liveWrapper">
             <Toolbar>
