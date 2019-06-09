@@ -1,3 +1,7 @@
+.size1{
+  position: absolute;
+}
+
 #ag-canvas {
   height: 100%;
 }

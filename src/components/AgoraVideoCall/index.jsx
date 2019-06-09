@@ -4,6 +4,7 @@ import AgoraRTC from 'agora-rtc-sdk'
 
 import './canvas.css'
 import '../../assets/fonts/css/icons.css'
+import VideoDetector from "../../components/VideoDetector/VideoDetector";
 
 const tile_canvas = {
   '1': ['span 12/span 24'],
@@ -38,6 +39,7 @@ class AgoraCanvas extends React.Component {
     let $ = this.props
     // init AgoraRTC local client
     this.client = AgoraRTC.createClient({ mode: $.transcode })
+
     this.client.init($.appId, () => {
       console.log("AgoraRTC client initialized")
       this.subscribeStreamEvents()
@@ -334,13 +336,18 @@ class AgoraCanvas extends React.Component {
       gridTemplateColumns: 'repeat(24, auto)'
     }
     const videoControlBtn = this.props.attendeeMode === 'video' ?
-      (<span
-        onClick={this.handleCamera}
-        className="ag-btn videoControlBtn"
-        title="Enable/Disable Video">
-        <i className="ag-icon ag-icon-camera"></i>
-        <i className="ag-icon ag-icon-camera-off"></i>
-      </span>) : ''
+      (
+      <div>
+        <span
+          onClick={this.handleCamera}
+          className="ag-btn videoControlBtn"
+          title="Enable/Disable Video">
+          <i className="ag-icon ag-icon-camera"></i>
+          <i className="ag-icon ag-icon-camera-off"></i>
+        </span>
+        <VideoDetector/>
+      </div>
+      ) : ''
 
     const audioControlBtn = this.props.attendeeMode !== 'audience' ?
       (<span
