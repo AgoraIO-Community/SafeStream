@@ -6,9 +6,6 @@ import Validator from "../../utils/Validator"
 import { RESOLUTION_ARR } from "../../utils/Settings"
 import "./index.css"
 import {
-  Input,
-  AppBar,
-  Toolbar,
   Button,
   TextField,
   FormControlLabel,
@@ -18,6 +15,7 @@ import {
   CardContent
 } from "@material-ui/core"
 import { withStyles } from "@material-ui/styles"
+import LogOutMenu from "../../components/LogOutMenu/LogOutMenu"
 
 const styles = theme => {
   console.log(theme)
@@ -82,6 +80,9 @@ class Index extends React.Component {
   render() {
     return (
       <div className="wrapper index">
+        <div className="logOutMenuHome">
+          <LogOutMenu />
+        </div>
         <div className="ag-header" />
         <div className="ag-main">
           <section className="login-wrapper">
