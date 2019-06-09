@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "agora-nsfw-dev-20190609012124-authRole",
+            "UnauthRoleArn": "arn:aws:iam::156152005502:role/agora-nsfw-dev-20190609012124-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::156152005502:role/agora-nsfw-dev-20190609012124-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "agora-nsfw-dev-20190609012124-deployment",
+            "UnauthRoleName": "agora-nsfw-dev-20190609012124-unauthRole",
+            "StackName": "agora-nsfw-dev-20190609012124",
+            "StackId": "arn:aws:cloudformation:us-east-1:156152005502:stack/agora-nsfw-dev-20190609012124/6cee2070-8a76-11e9-8095-12ff035a5bdc"
+        },
+        "categories": {
+            "auth": {
+                "agoransfwb9690d90": {}
+            }
+        }
+    }
+}

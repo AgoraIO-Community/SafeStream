@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"agoransfwb9690d90": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
