@@ -11,11 +11,11 @@ import Meeting from "./meeting"
 import { createMuiTheme } from "@material-ui/core/styles"
 import { ThemeProvider } from "@material-ui/styles"
 
-// import Amplify from "aws-amplify"
-// import awsconfig from "../aws-exports.js"
-// import { withAuthenticator } from "aws-amplify-react"
+import Amplify from "aws-amplify"
+import awsconfig from "../aws-exports.js"
+import { withAuthenticator } from "aws-amplify-react"
 
-// Amplify.configure(awsconfig)
+Amplify.configure(awsconfig)
 
 const theme = createMuiTheme({})
 
@@ -35,5 +35,5 @@ class App extends Component {
   }
 }
 
-// export default withAuthenticator(App)
-export default App
+export default withAuthenticator(App)
+
