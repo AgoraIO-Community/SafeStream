@@ -3,6 +3,7 @@ import * as Cookies from "js-cookie"
 
 import "./meeting.css"
 import AgoraVideoCall from "../../components/AgoraVideoCall"
+import AgoraVideoTest from "../../components/AgroaVideoTest"
 import { AGORA_APP_ID } from "../../agora.config"
 
 import { AppBar, Toolbar } from "@material-ui/core"
@@ -35,7 +36,16 @@ class Meeting extends React.Component {
         </div>
         <div className="ag-main">
           <div className="ag-container">
-            <AgoraVideoCall
+            {/* <AgoraVideoCall
+              videoProfile={this.videoProfile}
+              channel={this.channel}
+              transcode={this.transcode}
+              attendeeMode={this.attendeeMode}
+              baseMode={this.baseMode}
+              appId={this.appId}
+              uid={this.uid}
+            /> */}
+            <AgoraVideoTest
               videoProfile={this.videoProfile}
               channel={this.channel}
               transcode={this.transcode}
