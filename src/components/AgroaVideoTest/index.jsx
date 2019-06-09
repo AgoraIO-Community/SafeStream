@@ -10,7 +10,8 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  CircularProgress
+  CircularProgress,
+  Card
 } from "@material-ui/core";
 
 import LogOutMenu from "../LogOutMenu/LogOutMenu";
@@ -389,22 +390,24 @@ class AgoraCanvas extends React.Component {
           </div>
         )}
         <div>
-          <video
-            autoPlay
-            playsInline
-            muted
-            ref={this.videoRef}
-            width={
-              this.remoteStream.videoWidth
-                ? this.remoteStream.videoWidth
-                : "640px"
-            }
-            height={
-              this.remoteStream.videoHeight
-                ? this.remoteStream.videoHeight
-                : "480px"
-            }
-          />
+          <Card className="card" elevation={4}>
+            <video
+              autoPlay
+              playsInline
+              muted
+              ref={this.videoRef}
+              width={
+                this.remoteStream.videoWidth
+                  ? this.remoteStream.videoWidth
+                  : "640px"
+              }
+              height={
+                this.remoteStream.videoHeight
+                  ? this.remoteStream.videoHeight
+                  : "480px"
+              }
+            />
+          </Card>
           <div className={"greetingMessage"}>{greetingMessage}</div>
         </div>
         {this.state.readyState && this.state.video && (

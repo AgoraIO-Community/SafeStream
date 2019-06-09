@@ -1,6 +1,8 @@
 import React from "react"
 import * as Cookies from "js-cookie"
 
+import { Auth } from "aws-amplify"
+
 import "../../assets/fonts/css/icons.css"
 import Validator from "../../utils/Validator"
 import { RESOLUTION_ARR } from "../../utils/Settings"
@@ -13,7 +15,8 @@ import {
   RadioGroup,
   Card,
   CardContent,
-  Toolbar
+  Toolbar,
+  Typography
 } from "@material-ui/core"
 import { withStyles } from "@material-ui/styles"
 import LogOutMenu from "../../components/LogOutMenu/LogOutMenu"
@@ -73,7 +76,19 @@ class Index extends React.Component {
     Cookies.set("channel", this.state.channel)
     Cookies.set("baseMode", this.state.baseMode)
     Cookies.set("transcode", this.state.transcode)
-    Cookies.set("attendeeMode", this.state.attendeeMode)
+    Cookies.set("attendeeMode", "audience")
+    Cookies.set("videoProfile", this.state.videoProfile)
+    window.location.hash = "meeting"
+  }
+
+  handleBroadcast = () => {
+    console.log(this.state)
+    console.log(Auth.user)
+
+    Cookies.set("channel", Auth.user.username)
+    Cookies.set("baseMode", this.state.baseMode)
+    Cookies.set("transcode", this.state.transcode)
+    Cookies.set("attendeeMode", "video")
     Cookies.set("videoProfile", this.state.videoProfile)
     window.location.hash = "meeting"
   }
@@ -102,38 +117,26 @@ class Index extends React.Component {
               </CardContent>
               <CardContent>
                 <div className={this.props.classes.loginWrapper}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={this.handleBroadcast}
+                  >
+                    Start Broadcast
+                  </Button>
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                    className="centerText"
+                    fontWeight={600}
+                  >
+                    - OR -
+                  </Typography>
                   <InputChannel
                     onChange={this.handleChannel}
                     placeholder="Room name"
                   />
-
-                  <RadioGroup
-                    aria-label="Channel"
-                    name="channels"
-                    value={this.state.attendeeMode}
-                    onChange={e =>
-                      this.setState({ attendeeMode: e.target.value })
-                    }
-                  >
-                    <FormControlLabel
-                      value="video"
-                      control={<Radio />}
-                      label="Join as Host"
-                      onChange={e =>
-                        this.setState({ attendeeMode: e.target.value })
-                      }
-                      disabled={this.state.channel === ""}
-                    />
-                    <FormControlLabel
-                      value="audience"
-                      control={<Radio />}
-                      label="Join as Audience"
-                      onChange={e =>
-                        this.setState({ attendeeMode: e.target.value })
-                      }
-                      disabled={this.state.channel === ""}
-                    />
-                  </RadioGroup>
                   <Button
                     variant="contained"
                     color="primary"
@@ -141,7 +144,7 @@ class Index extends React.Component {
                     onClick={this.handleJoin}
                     disabled={!this.state.joinBtn}
                   >
-                    Join
+                    Join Broadcast
                   </Button>
                 </div>
               </CardContent>
