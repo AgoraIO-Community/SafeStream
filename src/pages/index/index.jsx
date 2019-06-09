@@ -12,7 +12,8 @@ import {
   Radio,
   RadioGroup,
   Card,
-  CardContent
+  CardContent,
+  Toolbar
 } from "@material-ui/core"
 import { withStyles } from "@material-ui/styles"
 import LogOutMenu from "../../components/LogOutMenu/LogOutMenu"
@@ -80,9 +81,9 @@ class Index extends React.Component {
   render() {
     return (
       <div className="wrapper index">
-        <div className="logOutMenuHome">
+        <Toolbar className="logOutMenuHome">
           <LogOutMenu />
-        </div>
+        </Toolbar>
         <div className="ag-header" />
         <div className="ag-main">
           <section className="login-wrapper">
