@@ -119,7 +119,7 @@ class AgoraCanvas extends React.Component {
         btnGroup.classList.remove('active');
       }, 2000);
     });
-    console.log(navigator.mediaDevices, m);
+
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       const webCamPromise = navigator.mediaDevices
         .getUserMedia({
