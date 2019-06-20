@@ -1,25 +1,25 @@
-import React from "react"
-import * as Cookies from "js-cookie"
+import React from "react";
+import * as Cookies from "js-cookie";
 
-import "./meeting.css"
-import AgoraVideoTest from "../../components/AgroaVideoTest"
-import { AGORA_APP_ID } from "../../agora.config"
+import "./meeting.css";
+import AgoraVideoTest from "../../components/AgroaVideoTest";
+// import { AGORA_APP_ID } from "../../agora.config";
 
-import { AppBar, Toolbar } from "@material-ui/core"
+import { AppBar, Toolbar } from "@material-ui/core";
 
 class Meeting extends React.Component {
   constructor(props) {
-    super(props)
-    this.videoProfile = Cookies.get("videoProfile").split(",")[0] || "480p_4"
-    this.channel = Cookies.get("channel") || "test"
-    this.transcode = Cookies.get("transcode") || "interop"
-    this.attendeeMode = Cookies.get("attendeeMode") || "video"
-    this.baseMode = Cookies.get("baseMode") || "avc"
-    this.appId = AGORA_APP_ID
+    super(props);
+    this.videoProfile = Cookies.get("videoProfile").split(",")[0] || "480p_4";
+    this.channel = Cookies.get("channel") || "test";
+    this.transcode = Cookies.get("transcode") || "interop";
+    this.attendeeMode = Cookies.get("attendeeMode") || "video";
+    this.baseMode = Cookies.get("baseMode") || "avc";
+    this.appId = "AppId goes here";
     if (!this.appId) {
-      return alert("Get App ID first!")
+      return alert("Get App ID first!");
     }
-    this.uid = undefined
+    this.uid = undefined;
   }
 
   render() {
@@ -30,7 +30,10 @@ class Meeting extends React.Component {
             <span>SafeStream</span>
           </div>
           <div className="ag-header-msg">
-            Room:&nbsp;<span id="room-name">{this.channel}, {this.attendeeMode}</span>
+            Room:&nbsp;
+            <span id="room-name">
+              {this.channel}, {this.attendeeMode}
+            </span>
           </div>
         </div>
         <div className="ag-main">
@@ -61,8 +64,8 @@ class Meeting extends React.Component {
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Meeting
+export default Meeting;

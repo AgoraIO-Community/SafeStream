@@ -1,34 +1,34 @@
-import React from "react"
+import React from "react";
 
-import { Auth } from "aws-amplify"
+// import { Auth } from "aws-amplify"
 
-import AccountCircleIcon from "@material-ui/icons/AccountCircle"
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-import { IconButton, MenuItem, Menu, Typography } from "@material-ui/core"
+import { IconButton, MenuItem, Menu, Typography } from "@material-ui/core";
 
 export default class LogOutMenu extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       anchorEl: null
-    }
+    };
   }
 
   handleClickMenu = event => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
   handleCloseMenu = () => {
-    this.setState({ anchorEl: null })
-  }
+    this.setState({ anchorEl: null });
+  };
 
   render() {
     return (
       <>
-        <Typography variant="overline" className="name">
+        {/* <Typography variant="overline" className="name">
           {Auth.user.username}
-        </Typography>
+        </Typography> */}
         <div>
           <IconButton
             aria-controls="simple-menu"
@@ -44,18 +44,18 @@ export default class LogOutMenu extends React.Component {
             open={Boolean(this.state.anchorEl)}
             onClose={this.handleCloseMenu}
           >
-            <MenuItem
+            {/* <MenuItem
               onClick={() => {
                 Auth.signOut()
                   .then(data => console.log(data))
-                  .catch(err => console.log(err))
+                  .catch(err => console.log(err));
               }}
             >
               Logout
-            </MenuItem>
+            </MenuItem> */}
           </Menu>
         </div>
       </>
-    )
+    );
   }
 }

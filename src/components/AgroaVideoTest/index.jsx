@@ -14,7 +14,7 @@ import {
   Card
 } from "@material-ui/core";
 
-import LogOutMenu from "../LogOutMenu/LogOutMenu";
+// import LogOutMenu from "../LogOutMenu/LogOutMenu";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import CloseIcon from "@material-ui/icons/Close";
 import MicIcon from "@material-ui/icons/Mic";
@@ -381,7 +381,7 @@ class AgoraCanvas extends React.Component {
               {switchDisplayBtn}
               {hideRemoteBtn}
             </div>
-            <LogOutMenu />
+            {/* <LogOutMenu /> */}
           </Toolbar>
         </AppBar>
         {!this.state.readyState && (

@@ -1,12 +1,12 @@
-import React from "react"
-import * as Cookies from "js-cookie"
+import React from "react";
+import * as Cookies from "js-cookie";
 
-import { Auth } from "aws-amplify"
+// import { Auth } from "aws-amplify"
 
-import "../../assets/fonts/css/icons.css"
-import Validator from "../../utils/Validator"
-import { RESOLUTION_ARR } from "../../utils/Settings"
-import "./index.css"
+import "../../assets/fonts/css/icons.css";
+import Validator from "../../utils/Validator";
+import { RESOLUTION_ARR } from "../../utils/Settings";
+import "./index.css";
 import {
   Button,
   TextField,
@@ -17,12 +17,12 @@ import {
   CardContent,
   Toolbar,
   Typography
-} from "@material-ui/core"
-import { withStyles } from "@material-ui/styles"
-import LogOutMenu from "../../components/LogOutMenu/LogOutMenu"
+} from "@material-ui/core";
+import { withStyles } from "@material-ui/styles";
+// import LogOutMenu from "../../components/LogOutMenu/LogOutMenu"
 
 const styles = theme => {
-  console.log(theme)
+  console.log(theme);
   return {
     header: {
       backgroundColor: theme.palette.primary.main
@@ -35,11 +35,11 @@ const styles = theme => {
       justifyContent: "space-between",
       alignItems: "stretch"
     }
-  }
-}
+  };
+};
 class Index extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       joinBtn: false,
       channel: "",
@@ -47,13 +47,13 @@ class Index extends React.Component {
       transcode: "interop",
       attendeeMode: "video",
       videoProfile: "480p_4"
-    }
+    };
   }
 
   componentDidMount() {
     window.addEventListener("keypress", e => {
-      e.keyCode === 13 && this.handleJoin()
-    })
+      e.keyCode === 13 && this.handleJoin();
+    });
   }
 
   /**
@@ -65,50 +65,47 @@ class Index extends React.Component {
     this.setState({
       channel: val,
       joinBtn: state
-    })
-  }
+    });
+  };
 
   handleJoin = () => {
     if (!this.state.joinBtn) {
-      return
+      return;
     }
-    console.log(this.state)
-    Cookies.set("channel", this.state.channel)
-    Cookies.set("baseMode", this.state.baseMode)
-    Cookies.set("transcode", this.state.transcode)
-    Cookies.set("attendeeMode", "audience")
-    Cookies.set("videoProfile", this.state.videoProfile)
-    window.location.hash = "meeting"
-  }
+    console.log(this.state);
+    Cookies.set("channel", this.state.channel);
+    Cookies.set("baseMode", this.state.baseMode);
+    Cookies.set("transcode", this.state.transcode);
+    Cookies.set("attendeeMode", "audience");
+    Cookies.set("videoProfile", this.state.videoProfile);
+    window.location.hash = "meeting";
+  };
 
   handleBroadcast = () => {
-    console.log(this.state)
-    console.log(Auth.user)
+    console.log(this.state);
+    // console.log(Auth.user);
 
-    Cookies.set("channel", Auth.user.username)
-    Cookies.set("baseMode", this.state.baseMode)
-    Cookies.set("transcode", this.state.transcode)
-    Cookies.set("attendeeMode", "video")
-    Cookies.set("videoProfile", this.state.videoProfile)
-    window.location.hash = "meeting"
-  }
+    Cookies.set("channel", "demo room");
+    Cookies.set("baseMode", this.state.baseMode);
+    Cookies.set("transcode", this.state.transcode);
+    Cookies.set("attendeeMode", "video");
+    Cookies.set("videoProfile", this.state.videoProfile);
+    window.location.hash = "meeting";
+  };
 
   render() {
     return (
       <div className="wrapper index">
-        <Toolbar className="logOutMenuHome">
+        {/* <Toolbar className="logOutMenuHome">
           <LogOutMenu />
-        </Toolbar>
+        </Toolbar> */}
         <div className="ag-header" />
         <div className="ag-main">
           <section className="login-wrapper">
             <Card>
               <CardContent className={this.props.classes.header}>
                 <div className="login-header">
-                  <img
-                    src={require("../../assets/images/logo.png")}
-                    alt=""
-                  />
+                  <img src={require("../../assets/images/logo.png")} alt="" />
                   <p className="login-title">SafeStream</p>
                   <p className="login-subtitle">
                     Content filters for real time communication
@@ -160,75 +157,75 @@ class Index extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 class InputChannel extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       errorMsg: "",
       state: ""
-    }
+    };
   }
 
   validate = val => {
     this.setState({
       state: "",
       errorMsg: ""
-    })
+    });
     if (Validator.isNonEmpty(val.trim())) {
       this.setState({
         errorMsg: "Cannot be empty!",
         state: "is-danger"
-      })
-      return false
+      });
+      return false;
     } else if (Validator.minLength(val.trim(), 1)) {
       this.setState({
         errorMsg: "No shorter than 1!",
         state: "is-danger"
-      })
-      return false
+      });
+      return false;
     } else if (Validator.maxLength(val.trim(), 16)) {
       this.setState({
         errorMsg: "No longer than 16!",
         state: "is-danger"
-      })
-      return false
+      });
+      return false;
     } else if (Validator.validChar(val.trim())) {
       this.setState({
         state: "is-danger",
         errorMsg:
           'Only capital or lower-case letter, number and "_" are permitted!'
-      })
-      return false
+      });
+      return false;
     } else {
       this.setState({
         state: "is-success"
-      })
-      return true
+      });
+      return true;
     }
-  }
+  };
 
   handleChange = e => {
-    let state = this.validate(e.target.value)
-    this.props.onChange(e.target.value, state)
-  }
+    let state = this.validate(e.target.value);
+    this.props.onChange(e.target.value, state);
+  };
 
   render() {
-    let validateIcon = ""
+    let validateIcon = "";
     switch (this.state.state) {
       default:
       case "":
-        validateIcon = ""
-        break
+        validateIcon = "";
+        break;
       case "is-success":
-        validateIcon = <i className="ag-icon ag-icon-valid" />
-        break
+        validateIcon = <i className="ag-icon ag-icon-valid" />;
+        break;
       case "is-danger":
-        validateIcon = <i className="ag-icon ag-icon-invalid" />
-        break
+        validateIcon = <i className="ag-icon ag-icon-invalid" />;
+        break;
     }
 
     return (
@@ -241,13 +238,13 @@ class InputChannel extends React.Component {
           helperText={this.state.errorMsg}
         />
       </>
-    )
+    );
   }
 }
 
 class BaseOptions extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this._options = [
       {
         label: "Agora Video Call",
@@ -260,22 +257,22 @@ class BaseOptions extends React.Component {
         content:
           "Enabling real-time interactions between the host and the audience"
       }
-    ]
+    ];
     this.state = {
       active: false,
       message: "Agora Video Call"
-    }
+    };
   }
 
   handleSelect = item => {
-    let msg = item.label
-    let val = item.value
+    let msg = item.label;
+    let val = item.value;
     this.setState({
       message: msg,
       active: false
-    })
-    this.props.onChange(val)
-  }
+    });
+    this.props.onChange(val);
+  };
 
   render() {
     const options = this._options.map((item, index) => {
@@ -289,8 +286,8 @@ class BaseOptions extends React.Component {
           <hr />
           <p>{item.content}</p>
         </div>
-      )
-    })
+      );
+    });
 
     return (
       <div className={this.state.active ? "dropdown is-active" : "dropdown"}>
@@ -314,25 +311,25 @@ class BaseOptions extends React.Component {
           <div className="dropdown-content">{options}</div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 class AdvancedOptions extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       active: false
-    }
+    };
   }
 
   handleRadio = e => {
-    this.props.onRadioChange(e.target.value)
-  }
+    this.props.onRadioChange(e.target.value);
+  };
 
   handleSelect = e => {
-    this.props.onSelectChange(e.target.value)
-  }
+    this.props.onSelectChange(e.target.value);
+  };
 
   render() {
     const options = Object.entries(RESOLUTION_ARR).map((item, index) => {
@@ -340,8 +337,8 @@ class AdvancedOptions extends React.Component {
         <option key={index} value={item[0].split(",")[0]}>
           {item[1][0]}x {item[1][1]}, {item[1][2]}fps, {item[1][3]}kbps
         </option>
-      )
-    })
+      );
+    });
     return (
       <div className={this.state.active ? "dropdown is-active" : "dropdown"}>
         <div
@@ -406,8 +403,8 @@ class AdvancedOptions extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default withStyles(styles)(Index)
+export default withStyles(styles)(Index);
