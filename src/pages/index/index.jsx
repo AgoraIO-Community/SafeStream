@@ -1,8 +1,5 @@
 import React from "react";
 import * as Cookies from "js-cookie";
-
-// import { Auth } from "aws-amplify"
-
 import "../../assets/fonts/css/icons.css";
 import Validator from "../../utils/Validator";
 import { RESOLUTION_ARR } from "../../utils/Settings";
@@ -10,19 +7,13 @@ import "./index.css";
 import {
   Button,
   TextField,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
   Card,
   CardContent,
-  Toolbar,
   Typography
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/styles";
-// import LogOutMenu from "../../components/LogOutMenu/LogOutMenu"
 
 const styles = theme => {
-  console.log(theme);
   return {
     header: {
       backgroundColor: theme.palette.primary.main
@@ -72,7 +63,6 @@ class Index extends React.Component {
     if (!this.state.joinBtn) {
       return;
     }
-    console.log(this.state);
     Cookies.set("channel", this.state.channel);
     Cookies.set("baseMode", this.state.baseMode);
     Cookies.set("transcode", this.state.transcode);
@@ -82,10 +72,7 @@ class Index extends React.Component {
   };
 
   handleBroadcast = () => {
-    console.log(this.state);
-    // console.log(Auth.user);
-
-    Cookies.set("channel", "demo room");
+    Cookies.set("channel", "demo_room");
     Cookies.set("baseMode", this.state.baseMode);
     Cookies.set("transcode", this.state.transcode);
     Cookies.set("attendeeMode", "video");
@@ -96,9 +83,6 @@ class Index extends React.Component {
   render() {
     return (
       <div className="wrapper index">
-        {/* <Toolbar className="logOutMenuHome">
-          <LogOutMenu />
-        </Toolbar> */}
         <div className="ag-header" />
         <div className="ag-main">
           <section className="login-wrapper">

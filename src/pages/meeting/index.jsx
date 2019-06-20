@@ -2,10 +2,7 @@ import React from "react";
 import * as Cookies from "js-cookie";
 
 import "./meeting.css";
-import AgoraVideoTest from "../../components/AgroaVideoTest";
-// import { AGORA_APP_ID } from "../../agora.config";
-
-import { AppBar, Toolbar } from "@material-ui/core";
+import AgoraVideoCall from "../../components/AgoraVideoCall";
 
 class Meeting extends React.Component {
   constructor(props) {
@@ -15,7 +12,7 @@ class Meeting extends React.Component {
     this.transcode = Cookies.get("transcode") || "interop";
     this.attendeeMode = Cookies.get("attendeeMode") || "video";
     this.baseMode = Cookies.get("baseMode") || "avc";
-    this.appId = "AppId goes here";
+    this.appId = "AppID goes here";
     if (!this.appId) {
       return alert("Get App ID first!");
     }
@@ -38,16 +35,7 @@ class Meeting extends React.Component {
         </div>
         <div className="ag-main">
           <div className="ag-container">
-            {/* <AgoraVideoCall
-              videoProfile={this.videoProfile}
-              channel={this.channel}
-              transcode={this.transcode}
-              attendeeMode={this.attendeeMode}
-              baseMode={this.baseMode}
-              appId={this.appId}
-              uid={this.uid}
-            /> */}
-            <AgoraVideoTest
+            <AgoraVideoCall
               videoProfile={this.videoProfile}
               channel={this.channel}
               transcode={this.transcode}
